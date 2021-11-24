@@ -1,0 +1,13 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+INPUT_FILE=$1
+START_LINE=`head -n1 $INPUT_FILE`
+
+if ! [[ "$START_LINE" =~ ^[\ []CUM-[0-9]+[]\ ][[:space:]]([A-Za-z0-9]|[[:space:]])*$ ]]
+then
+  $PWD"/.husky/bash-message.sh" "Bad commit message. Examples below:
+  \n\t - [CUM-69] Added more cum to the repo.
+  \n\t - [CUM-70] Remove cum from the repo."
+  exit 1
+fi
