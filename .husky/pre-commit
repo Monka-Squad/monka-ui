@@ -1,0 +1,15 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+BRANCH="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "$BRANCH" = "main" ]; then
+  $PWD"/.husky/bash-message.sh" "Cannot commit to main. Please commit changes to a new branch."
+  exit 1
+fi
+
+if ! [[ "$BRANCH" =~ ^(feat|fix)/CUM-[0-9]-[A-Za-z0-9\-]*$ ]]; then
+  $PWD"/.husky/bash-message.sh" "Branch name has incorrect format. Examples below: 
+  \n\t ~ fix/CUM-69-Fix-amount-of-cum-in-repo
+  \n\t ~ feat/CUM-70-Add-more-cum-to-repo\n\t "
+fi
